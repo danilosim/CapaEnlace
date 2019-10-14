@@ -9,17 +9,26 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /* Setup */
+
         CapaRed capaRedEmisor = new CapaRed();
         CapaRed capaRedReceptor = new CapaRed();
         CapaEnlace capaEnlaceEmisor = new CapaEnlace();
         CapaEnlace capaEnlaceReceptor = new CapaEnlace();
-        InterfazRedEnlace redEnlaceIda = new InterfazRedEnlace();
-        InterfazRedEnlace redEnlaceVuelta = new InterfazRedEnlace();
-        capaRedEmisor.setInterfaz();
+        CapaFisica capafisica = CapaFisica.getInstance();
 
+        capaRedEmisor.setCapaEnlace(capaEnlaceEmisor);
+        capaEnlaceEmisor.setCapaRed(capaRedEmisor);
+        capaEnlaceEmisor.setCapaFisica(capafisica);
+        capafisica.setCapaEnlaceUno(capaEnlaceEmisor);
+        capafisica.setCapaEnlaceDos(capaEnlaceReceptor);
+        capaEnlaceReceptor.setCapaFisica(capafisica);
+        capaEnlaceReceptor.setCapaRed(capaRedReceptor);
+        capaRedReceptor.setCapaEnlace(capaEnlaceReceptor);
 
-        CapaFisica cfisica = new CapaFisica();
-        cfisica.send(new BigInteger("1001"));
+        /* Envío de Mensajes*/
+
+        capaRedEmisor.enviarDatos("Mensaje inicial");
 
 
 }

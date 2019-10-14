@@ -2,22 +2,22 @@ package com.capaenlace;
 
 public class CapaRed {
 
-    private InterfazRedEnlace interfaz;
+    private CapaEnlace capaEnlace;
 
-    public InterfazRedEnlace getInterfaz() {
-        return interfaz;
+    public CapaEnlace getCapaEnlace() {
+        return capaEnlace;
     }
 
-    public void setInterfaz(InterfazRedEnlace interfaz) {
-        this.interfaz = interfaz;
+    public void setCapaEnlace(CapaEnlace capaEnlace) {
+        this.capaEnlace = capaEnlace;
     }
 
     public void enviarDatos(String paquete){
-        interfaz.mandarCapaEnlace(paquete);
+        capaEnlace.enviarDatos(paquete);
     }
 
     public void recibirDatos(String paquete){
-
+        System.out.println(paquete);
     }
 
 }
