@@ -1,12 +1,19 @@
 package com.capaenlace;
 
-public class CapaEnlace {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Semaphore;
+
+public class CapaEnlace extends Thread{
 
     private CapaRed capaRed;
     private CapaFisica capaFisica;
 
-    private String aEnviar;
-    private String aRecibir;
+    private List<Trama> tramas = new ArrayList<>();
+    private int numeroSecuencia = 0;
+    private int proximoEnviar = 0;
+    private int proximoRecibir = 0;
 
     private boolean puedeEnviar = true;
 
@@ -27,20 +34,19 @@ public class CapaEnlace {
     }
 
     public void enviarDatos(String paquete){
-        aEnviar = paquete;
-        int longitud = paquete.length();
-        if(puedeEnviar){
-            capaFisica.send(String.valueOf(longitud), this);
-        }
-        capaFisica.send(paquete, this);
+        tramas.add(new Trama(paquete, numeroSecuencia, Trama.Tipo.DATO));
+        numeroSecuencia++;
     }
 
-    public void recibirDatos(String paquete){
-        capaRed.recibirDatos(paquete);
-        if (paquete != "Llegó bien"){
-            capaFisica.send("Llegó bien", this);
+    public void recibirDatos(Trama trama, int secuencia){
+        capaRed.recibirDatos(trama.getPaquete());
+        if (!trama.getPaquete().equals("Llegó bien")){
+            capaFisica.send("Llegó bien", this, secuencia);
+        } else {
+            proximoRecibir++;
         }
 
     }
 
-}
+
+    }

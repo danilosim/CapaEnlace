@@ -1,6 +1,8 @@
 package com.capaenlace;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CapaFisica {
 
@@ -8,13 +10,15 @@ public class CapaFisica {
     private int delay = 10; //segundos
     private CapaEnlace capaEnlaceUno;
     private CapaEnlace capaEnlaceDos;
+    private AtomicBoolean puedeEnviar = new AtomicBoolean(true);
+
 
     private CapaFisica(CapaEnlace capaEnlaceUno, CapaEnlace capaEnlaceDos){
         this.capaEnlaceUno = capaEnlaceUno;
         this.capaEnlaceDos = capaEnlaceDos;
     }
 
-    public static CapaFisica getInstance(CapaEnlace capaEnlaceUno, CapaEnlace capaEnlaceDos){
+    static CapaFisica getInstance(CapaEnlace capaEnlaceUno, CapaEnlace capaEnlaceDos){
         if(capaFisica == null){
             capaFisica = new CapaFisica(capaEnlaceUno, capaEnlaceDos);
             return capaFisica;
@@ -47,16 +51,4 @@ public class CapaFisica {
         this.capaEnlaceDos = capaEnlaceDos;
     }
 
-    public void send(String marco, CapaEnlace capaEnlaceEmisora){
-        try {
-            TimeUnit.SECONDS.sleep(delay);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        if (capaEnlaceUno.equals(capaEnlaceEmisora)){
-            capaEnlaceDos.recibirDatos(marco);
-        } else {
-            capaEnlaceUno.recibirDatos(marco);
-        }
-    }
 }
