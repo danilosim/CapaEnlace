@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CapaFisica {
 
     private static CapaFisica capaFisica;
-    private int delay = 10; //segundos
+    private int delay = 3; //segundos
     private CapaEnlace capaEnlaceUno;
     private CapaEnlace capaEnlaceDos;
     private boolean puedeEnviar = true;
@@ -42,11 +42,15 @@ public class CapaFisica {
                 e.printStackTrace();
             }
             if(capaEnlaceUno.getNombreCapa().equals(nombreEmisor)){
-                System.out.println("Llego: " + trama.toString() + " a la capa de enlace " + capaEnlaceDos.getNombreCapa());
-                capaEnlaceDos.recibirDatos(trama);
+                if(Math.random() > 0.1){
+                    System.out.println("Llego: " + trama.toString() + " a la capa de enlace " + capaEnlaceDos.getNombreCapa());
+                    capaEnlaceDos.recibirDatos(trama);
+                }
             } else {
-                System.out.println("Llego: " + trama.toString() + " a la capa de enlace " + capaEnlaceUno.getNombreCapa());
-                capaEnlaceUno.recibirDatos(trama);
+                if(Math.random() > 0.1){
+                    System.out.println("Llego: " + trama.toString() + " a la capa de enlace " + capaEnlaceUno.getNombreCapa());
+                    capaEnlaceUno.recibirDatos(trama);
+                }
             }
             puedeEnviar = true;
             notifyAll();

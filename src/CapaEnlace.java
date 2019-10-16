@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Semaphore;
@@ -15,8 +16,8 @@ public class CapaEnlace extends Thread{
     private volatile int proximoEnviar = 0;
     private volatile int proximoRecibir = 0;
     private volatile boolean yaEnviado = false;
+    private Trama ultimaTramaRecibida;
 
-    private boolean puedeEnviar = true;
 
     public String getNombreCapa() {
         return nombreCapa;
@@ -50,25 +51,51 @@ public class CapaEnlace extends Thread{
 
     @Override
     public void run(){
+
         while(true){
-            if(!tramas.isEmpty() && !yaEnviado){
-                for(Trama trama : tramas){
+            if(tramaACK != null){
+//                System.out.println("Se manda ACK");
+                capaFisica.send(tramaACK, nombreCapa);
+                tramaACK = null;
+            }
+            if(!yaEnviado){
+                Iterator tramaIterator = tramas.iterator();
+                while(tramaIterator.hasNext()){
+                    Trama trama = (Trama)tramaIterator.next();
                     if(trama.getSecuencia() == proximoEnviar) {
 //                        System.out.println("Se mandan datos desde " + this.getName());
                         //                    System.out.println(currentThread().getState());
                         capaFisica.send(tramas.get(0), nombreCapa);
                         yaEnviado = true;
-                        //                try {
-                        //                    Thread.sleep(2000);
-                        //                } catch (InterruptedException e) {
-                        //                    e.printStackTrace();
-                        //                }
+
+
+                        if(tramaACK != null){
+//                System.out.println("Se manda ACK");
+                            capaFisica.send(tramaACK, nombreCapa);
+                            tramaACK = null;
+                        }
+
+                        try {
+                            Thread.sleep(15000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        if(tramaACK != null){
+//                System.out.println("Se manda ACK");
+                            capaFisica.send(tramaACK, nombreCapa);
+                            tramaACK = null;
+                        }
+
+                        if(trama.getSecuencia() == proximoEnviar){
+                            yaEnviado = false;
+                        } else {
+                            tramaIterator.remove();
+                        }
+
+
                     }
                 }
-            } if(tramaACK != null){
-//                System.out.println("Se manda ACK");
-                capaFisica.send(tramaACK, nombreCapa);
-                tramaACK = null;
             }
         }
     }
@@ -79,7 +106,7 @@ public class CapaEnlace extends Thread{
             case ACK:
 //                System.out.println("ACK");
                 if (trama.getSecuencia() == proximoEnviar){
-                    tramas.remove(0);
+//                    tramas.remove(0);
                     proximoEnviar++;
                     yaEnviado = false;
                 }
@@ -92,6 +119,8 @@ public class CapaEnlace extends Thread{
                     proximoRecibir++;
                     capaRed.recibirDatos(trama.getPaquete());
 //                    System.out.println("Llegaron datos" + this.getNombreCapa());
+                    tramaACK = new Trama(null, trama.getSecuencia(), Trama.Tipo.ACK);
+                } else if(trama.getSecuencia() == proximoRecibir - 1){
                     tramaACK = new Trama(null, trama.getSecuencia(), Trama.Tipo.ACK);
                 }
         }

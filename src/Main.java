@@ -44,10 +44,10 @@ public class Main {
         capaEnlaceEmisor.start();
         capaEnlaceReceptor.start();
 
-//        TimeUnit.SECONDS.sleep(60);
+//        TimeUnit.SECONDS.sleep(120);
 //
-//        capaRedReceptor.enviarDatos("Mensaje en otro sentido");
-//        capaRedEmisor.enviarDatos("Mensaje añadido despues");
+        capaRedReceptor.enviarDatos("Mensaje en otro sentido");
+        capaRedEmisor.enviarDatos("Mensaje añadido despues");
 
 
 
