@@ -1,0 +1,39 @@
+Comienza a mandarse la trama Trama con mensaje  "Mensaje inicial", secuencia= 0, tipo= DATO desde la capa de enlace Emisor
+Llego: Trama con mensaje  "Mensaje inicial", secuencia= 0, tipo= DATO a la capa de enlace Receptor
+Capa de Red recibio paquete con mensaje: "Mensaje inicial"
+Comienza a mandarse la trama Trama con mensaje  "De vuelta 1", secuencia= 0, tipo= DATO desde la capa de enlace Receptor
+Comienza a mandarse la trama Trama con mensaje  "null", secuencia= 0, tipo= ACK desde la capa de enlace Receptor
+Llego: Trama con mensaje  "null", secuencia= 0, tipo= ACK a la capa de enlace Emisor
+Comienza a mandarse la trama Trama con mensaje  "Mensaje del medio", secuencia= 1, tipo= DATO desde la capa de enlace Emisor
+Llego: Trama con mensaje  "Mensaje del medio", secuencia= 1, tipo= DATO a la capa de enlace Receptor
+Capa de Red recibio paquete con mensaje: "Mensaje del medio"
+Comienza a mandarse la trama Trama con mensaje  "null", secuencia= 1, tipo= ACK desde la capa de enlace Receptor
+Llego: Trama con mensaje  "null", secuencia= 1, tipo= ACK a la capa de enlace Emisor
+Comienza a mandarse la trama Trama con mensaje  "De vuelta 1", secuencia= 0, tipo= DATO desde la capa de enlace Receptor
+Llego: Trama con mensaje  "De vuelta 1", secuencia= 0, tipo= DATO a la capa de enlace Emisor
+Capa de Red recibio paquete con mensaje: "De vuelta 1"
+Comienza a mandarse la trama Trama con mensaje  "null", secuencia= 0, tipo= ACK desde la capa de enlace Emisor
+Comienza a mandarse la trama Trama con mensaje  "Mensaje final", secuencia= 2, tipo= DATO desde la capa de enlace Emisor
+Llego: Trama con mensaje  "Mensaje final", secuencia= 2, tipo= DATO a la capa de enlace Receptor
+Capa de Red recibio paquete con mensaje: "Mensaje final"
+Comienza a mandarse la trama Trama con mensaje  "null", secuencia= 2, tipo= ACK desde la capa de enlace Receptor
+Llego: Trama con mensaje  "null", secuencia= 2, tipo= ACK a la capa de enlace Emisor
+Comienza a mandarse la trama Trama con mensaje  "De vuelta 1", secuencia= 0, tipo= DATO desde la capa de enlace Receptor
+Llego: Trama con mensaje  "De vuelta 1", secuencia= 0, tipo= DATO a la capa de enlace Emisor
+Comienza a mandarse la trama Trama con mensaje  "null", secuencia= 0, tipo= ACK desde la capa de enlace Emisor
+Llego: Trama con mensaje  "null", secuencia= 0, tipo= ACK a la capa de enlace Receptor
+Comienza a mandarse la trama Trama con mensaje  "Mensaje añadido despues", secuencia= 3, tipo= DATO desde la capa de enlace Emisor
+Llego: Trama con mensaje  "Mensaje añadido despues", secuencia= 3, tipo= DATO a la capa de enlace Receptor
+Capa de Red recibio paquete con mensaje: "Mensaje añadido despues"
+Comienza a mandarse la trama Trama con mensaje  "null", secuencia= 3, tipo= ACK desde la capa de enlace Receptor
+Llego: Trama con mensaje  "null", secuencia= 3, tipo= ACK a la capa de enlace Emisor
+Comienza a mandarse la trama Trama con mensaje  "De vuelta 2", secuencia= 1, tipo= DATO desde la capa de enlace Receptor
+Llego: Trama con mensaje  "De vuelta 2", secuencia= 1, tipo= DATO a la capa de enlace Emisor
+Capa de Red recibio paquete con mensaje: "De vuelta 2"
+Comienza a mandarse la trama Trama con mensaje  "null", secuencia= 1, tipo= ACK desde la capa de enlace Emisor
+Llego: Trama con mensaje  "null", secuencia= 1, tipo= ACK a la capa de enlace Receptor
+Comienza a mandarse la trama Trama con mensaje  "Mensaje en otro sentido", secuencia= 2, tipo= DATO desde la capa de enlace Receptor
+Llego: Trama con mensaje  "Mensaje en otro sentido", secuencia= 2, tipo= DATO a la capa de enlace Emisor
+Capa de Red recibio paquete con mensaje: "Mensaje en otro sentido"
+Comienza a mandarse la trama Trama con mensaje  "null", secuencia= 2, tipo= ACK desde la capa de enlace Emisor
+Llego: Trama con mensaje  "null", secuencia= 2, tipo= ACK a la capa de enlace Receptor

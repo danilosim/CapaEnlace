@@ -10,7 +10,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
-        /* Setup */
+        /* SETUP */
 
         CapaRed capaRedEmisor = new CapaRed();
         CapaRed capaRedReceptor = new CapaRed();
@@ -29,27 +29,25 @@ public class Main {
         capaEnlaceReceptor.setCapaRed(capaRedReceptor);
         capaRedReceptor.setCapaEnlace(capaEnlaceReceptor);
 
-        /* Envío de Mensajes*/
+        capaEnlaceEmisor.setName("ThreadEmisor");
+        capaEnlaceReceptor.setName("ThreadReceptor");
+
+        /* ENVÍO DE PAQUETES */
 
         capaRedEmisor.enviarDatos("Mensaje inicial");
         capaRedEmisor.enviarDatos("Mensaje del medio");
         capaRedEmisor.enviarDatos("Mensaje final");
 
-//        capaRedReceptor.enviarDatos("De vuelta 1");
-//        capaRedReceptor.enviarDatos("De vuelta 2");
+        capaRedReceptor.enviarDatos("De vuelta 1");
+        capaRedReceptor.enviarDatos("De vuelta 2");
 
-        capaEnlaceEmisor.setName("ThreadEmisor");
-        capaEnlaceReceptor.setName("ThreadReceptor");
+        capaRedReceptor.enviarDatos("Mensaje en otro sentido");
+        capaRedEmisor.enviarDatos("Mensaje añadido despues");
+
+        /* INICIO DE LOS THREADS */
 
         capaEnlaceEmisor.start();
         capaEnlaceReceptor.start();
-
-//        TimeUnit.SECONDS.sleep(120);
-//
-//        capaRedReceptor.enviarDatos("Mensaje en otro sentido");
-        capaRedEmisor.enviarDatos("Mensaje añadido despues");
-
-
 
     }
 

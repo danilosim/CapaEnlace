@@ -1,10 +1,15 @@
 public class Trama {
 
-    private String paquete;
-    private int secuencia;
-    public enum Tipo {DATO, ACK, NAK};
-    private Tipo tipo;
-    private long checksum;
+    public enum Tipo {DATO, ACK, NAK}; //Enum que indica si la trama es de datos, ACK o NAK
+
+    /* VARIABLES */
+
+    private String paquete; //El paquete recibido desde la capa de red
+    private int secuencia; //Número de secuendia de la trama
+    private Tipo tipo; //Tipo de trama (Datos, ACK o NAK)
+    private long checksum; //Suma de verificación de la trama
+
+    /* CONSTRUCTORES */
 
     public Trama (String paquete, int secuencia, Tipo tipo){
         this.paquete = paquete;
@@ -18,6 +23,8 @@ public class Trama {
         this.tipo = tipo;
         this.checksum = checksum;
     }
+
+    /* SETTERS Y GETTERS */
 
     public String getPaquete() {
         return paquete;
@@ -50,6 +57,8 @@ public class Trama {
     public void setChecksum(long checksum) {
         this.checksum = checksum;
     }
+
+    /* TO_STRING */
 
     @Override
     public String toString() {
