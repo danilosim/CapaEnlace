@@ -1,5 +1,3 @@
-package com.capaenlace;
-
 public class CapaRed {
 
     private CapaEnlace capaEnlace;
@@ -17,7 +15,7 @@ public class CapaRed {
     }
 
     public void recibirDatos(String paquete){
-        System.out.println(paquete);
+        System.out.println("Capa de Red recibio paquete con mensaje: \"" + paquete + "\"");
     }
 
 }

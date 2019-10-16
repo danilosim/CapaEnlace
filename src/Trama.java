@@ -1,5 +1,3 @@
-package com.capaenlace;
-
 public class Trama {
 
     private String paquete;
@@ -36,5 +34,10 @@ public class Trama {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    @Override
+    public String toString() {
+        return "Trama con mensaje  \"" + paquete +  "\", secuencia= " + secuencia +  ", tipo= " + tipo;
     }
 }
