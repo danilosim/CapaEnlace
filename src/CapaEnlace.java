@@ -16,7 +16,7 @@ public class CapaEnlace extends Thread{
     private volatile int proximoEnviar = 0;
     private volatile int proximoRecibir = 0;
     private volatile boolean yaEnviado = false;
-    private Trama ultimaTramaRecibida;
+    private volatile boolean NAK = false;
 
 
     public String getNombreCapa() {
@@ -44,7 +44,8 @@ public class CapaEnlace extends Thread{
     }
 
     public void enviarDatos(String paquete){
-        tramas.add(new Trama(paquete, numeroSecuencia, Trama.Tipo.DATO));
+        long checksum = CRC.calculateCRC(CRC.Parameters.CCITT, paquete.getBytes());
+        tramas.add(new Trama(paquete, numeroSecuencia, Trama.Tipo.DATO, checksum));
 //        System.out.println("Se agrego la trama con numero de secuencia " + numeroSecuencia);
         numeroSecuencia++;
     }
@@ -54,7 +55,6 @@ public class CapaEnlace extends Thread{
 
         while(true){
             if(tramaACK != null){
-//                System.out.println("Se manda ACK");
                 capaFisica.send(tramaACK, nombreCapa);
                 tramaACK = null;
             }
@@ -63,15 +63,12 @@ public class CapaEnlace extends Thread{
                 while(tramaIterator.hasNext()){
                     Trama trama = (Trama)tramaIterator.next();
                     if(trama.getSecuencia() == proximoEnviar) {
-//                        System.out.println("Se mandan datos desde " + this.getName());
-                        //                    System.out.println(currentThread().getState());
-                        capaFisica.send(tramas.get(0), nombreCapa);
+                        capaFisica.send(tramas.get(0), this.nombreCapa);
                         yaEnviado = true;
 
 
                         if(tramaACK != null){
-//                System.out.println("Se manda ACK");
-                            capaFisica.send(tramaACK, nombreCapa);
+                            capaFisica.send(tramaACK, this.nombreCapa);
                             tramaACK = null;
                         }
 
@@ -92,8 +89,6 @@ public class CapaEnlace extends Thread{
                         } else {
                             tramaIterator.remove();
                         }
-
-
                     }
                 }
             }
@@ -112,14 +107,20 @@ public class CapaEnlace extends Thread{
                 }
                 break;
             case NAK:
-                System.out.println("NAK");
+//                System.out.println("NAK");
+                yaEnviado = false;
                 break;
             case DATO:
                 if(trama.getSecuencia() == proximoRecibir){
-                    proximoRecibir++;
-                    capaRed.recibirDatos(trama.getPaquete());
+                    if(trama.getChecksum() == CRC.calculateCRC(CRC.Parameters.CCITT, trama.getPaquete().getBytes())){
+                        proximoRecibir++;
+                        capaRed.recibirDatos(trama.getPaquete());
 //                    System.out.println("Llegaron datos" + this.getNombreCapa());
-                    tramaACK = new Trama(null, trama.getSecuencia(), Trama.Tipo.ACK);
+                        tramaACK = new Trama(null, trama.getSecuencia(), Trama.Tipo.ACK);
+                    } else {
+                        System.out.println("Llegaron datos erroneos: " + trama.toString() + " a la capa de enlace " + this.getNombreCapa());
+                        tramaACK = new Trama(null, trama.getSecuencia(), Trama.Tipo.NAK);
+                    }
                 } else if(trama.getSecuencia() == proximoRecibir - 1){
                     tramaACK = new Trama(null, trama.getSecuencia(), Trama.Tipo.ACK);
                 }

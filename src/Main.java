@@ -35,8 +35,8 @@ public class Main {
         capaRedEmisor.enviarDatos("Mensaje del medio");
         capaRedEmisor.enviarDatos("Mensaje final");
 
-        capaRedReceptor.enviarDatos("De vuelta 1");
-        capaRedReceptor.enviarDatos("De vuelta 2");
+//        capaRedReceptor.enviarDatos("De vuelta 1");
+//        capaRedReceptor.enviarDatos("De vuelta 2");
 
         capaEnlaceEmisor.setName("ThreadEmisor");
         capaEnlaceReceptor.setName("ThreadReceptor");
@@ -46,7 +46,7 @@ public class Main {
 
 //        TimeUnit.SECONDS.sleep(120);
 //
-        capaRedReceptor.enviarDatos("Mensaje en otro sentido");
+//        capaRedReceptor.enviarDatos("Mensaje en otro sentido");
         capaRedEmisor.enviarDatos("Mensaje añadido despues");
 
 

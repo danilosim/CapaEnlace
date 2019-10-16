@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -9,6 +10,7 @@ public class CapaFisica {
     private CapaEnlace capaEnlaceUno;
     private CapaEnlace capaEnlaceDos;
     private boolean puedeEnviar = true;
+    private Trama tramaModificada;
 
 
     private CapaFisica(CapaEnlace capaEnlaceUno, CapaEnlace capaEnlaceDos){
@@ -42,14 +44,30 @@ public class CapaFisica {
                 e.printStackTrace();
             }
             if(capaEnlaceUno.getNombreCapa().equals(nombreEmisor)){
+                if(Math.random() < 0.8){
+
+                    tramaModificada = new Trama(trama.getPaquete(), trama.getSecuencia(), trama.getTipo(), trama.getChecksum());
+                    do{
+                        Random random = new Random();
+                        int index = random.nextInt(tramaModificada.getPaquete().length());
+
+                        Random r = new Random();
+                        char c = (char)(r.nextInt(26) + 'a');
+                        StringBuilder paqueteModificado = new StringBuilder(trama.getPaquete());
+//                        paqueteModificado.deleteCharAt(index);
+                        paqueteModificado.setCharAt(index, c);
+
+                        tramaModificada.setPaquete(paqueteModificado.toString());
+                    } while (Math.random() <0.5);
+                }
                 if(Math.random() > 0.1){
                     System.out.println("Llego: " + trama.toString() + " a la capa de enlace " + capaEnlaceDos.getNombreCapa());
-                    capaEnlaceDos.recibirDatos(trama);
+                    capaEnlaceDos.recibirDatos((tramaModificada == null) ? trama : tramaModificada);
                 }
             } else {
                 if(Math.random() > 0.1){
                     System.out.println("Llego: " + trama.toString() + " a la capa de enlace " + capaEnlaceUno.getNombreCapa());
-                    capaEnlaceUno.recibirDatos(trama);
+                    capaEnlaceUno.recibirDatos((tramaModificada == null) ? trama : tramaModificada);
                 }
             }
             puedeEnviar = true;
